@@ -42,12 +42,11 @@ spec:
             value: "build"      
         volumeMounts:
         - mountPath: /var/run/docker.sock
-          name: docker-volume
-          securityContext:
-            fsGroup: 900
+          name: docker-volume           
       securityContext:
         runAsNonRoot: true
-        runAsUser: 900    
+        runAsUser: 900
+        fsGroup: 900
       volumes:
       - name: docker-volume
         hostPath:
