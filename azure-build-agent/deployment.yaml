@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: az-agent-build
-          image: local/az-local-agent:bb0ea4c
+          image: local/az-local-agent:fb7eb42
           imagePullPolicy: Never
           env:
             # Needed for mac osx m1 serie
