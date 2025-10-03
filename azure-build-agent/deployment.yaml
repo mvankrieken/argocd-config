@@ -17,36 +17,36 @@ spec:
         app: az-devops-linux-build
     spec:
       containers:
-      - name: az-agent-build
-        image: local/az-local-agent:v1.5.19
-        imagePullPolicy: Never
-        env:
-          # Needed for mac osx m1 serie
-          - name: DOTNET_EnableWriteXorExecute
-            value: "0"
-          # Manatory settings
-          - name: VSTS_AGENT_INPUT_POOL
-            value: "Local-kubernetes"
-          # Secret  
-          - name: VSTS_AGENT_INPUT_URL
-            valueFrom:
-              secretKeyRef:
-                name: azdevops
-                key: AZP_URL
-          - name: VSTS_AGENT_INPUT_TOKEN
-            valueFrom:
-              secretKeyRef:
-                name: azdevops
-                key: AZP_TOKEN
-          # Type
-          - name: DEF_TYPE
-            value: "build"      
-        volumeMounts:
-        - mountPath: /var/run/docker.sock
-          name: docker-volume           
+        - name: az-agent-build
+          image: local/az-local-agent:bb0ea4c
+          imagePullPolicy: Never
+          env:
+            # Needed for mac osx m1 serie
+            - name: DOTNET_EnableWriteXorExecute
+              value: "0"
+            # Manatory settings
+            - name: VSTS_AGENT_INPUT_POOL
+              value: "Local-kubernetes"
+            # Secret  
+            - name: VSTS_AGENT_INPUT_URL
+              valueFrom:
+                secretKeyRef:
+                  name: azdevops
+                  key: AZP_URL
+            - name: VSTS_AGENT_INPUT_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: azdevops
+                  key: AZP_TOKEN
+            # Type
+            - name: DEF_TYPE
+              value: "build"
+          volumeMounts:
+            - mountPath: /var/run/docker.sock
+              name: docker-volume
       securityContext:
         runAsNonRoot: false
       volumes:
-      - name: docker-volume
-        hostPath:
-          path: /var/run/docker.sock
+        - name: docker-volume
+          hostPath:
+            path: /var/run/docker.sock
