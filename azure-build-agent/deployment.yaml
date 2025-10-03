@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: az-agent-build
-        image: local/az-local-agent:v1.5.13
+        image: local/az-local-agent:v1.5.14
         imagePullPolicy: Never
         env:
           # Needed for mac osx m1 serie
@@ -43,6 +43,11 @@ spec:
         volumeMounts:
         - mountPath: /var/run/docker.sock
           name: docker-volume
+          securityContext:
+            fsGroup: 900
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 900    
       volumes:
       - name: docker-volume
         hostPath:
