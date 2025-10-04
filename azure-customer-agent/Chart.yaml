@@ -1,0 +1,6 @@
+apiVersion: v2
+name: azure-customer-agent
+description: A Helm chart for azure customer agent
+type: application
+version: 0.1.0
+appVersion: "1.0"

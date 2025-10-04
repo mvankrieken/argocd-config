@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "azure-customer-agent.fullname" . }}
+  labels:
+    app: {{ template "azure-customer-agent.name" . }}
+    chart: {{ template "azure-customer-agent.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: {{ template "azure-customer-agent.name" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "azure-customer-agent.name" . }}
+        release: {{ .Release.Name }}
+    spec:
+      containers:
+      - name: {{ .Chart.Name }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: Never
+        env:
+          # Needed for mac osx m1 serie
+          - name: DOTNET_EnableWriteXorExecute
+            value: "0"
+          # Manatory settings
+          - name: VSTS_AGENT_INPUT_POOL
+            value: "{{ .Values.agentPool }}"
+          # Secret  
+          - name: VSTS_AGENT_INPUT_URL
+            valueFrom:
+              secretKeyRef:
+                name: azdevops
+                key: AZP_URL
+          - name: VSTS_AGENT_INPUT_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: azdevops
+                key: AZP_TOKEN
+          # Type
+          - name: DEF_TYPE
+            value: "deploy"
+          # Customer
+          - name: DEF_CUSTOMER_NAME
+            value: "{{ .Values.agentCustomer }}"
+        volumeMounts:
+        - mountPath: /var/run/docker.sock
+          name: docker-volume
+      volumes:
+      - name: docker-volume
+        hostPath:
+          path: /var/run/docker.sock

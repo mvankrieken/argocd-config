@@ -1,0 +1,9 @@
+# Generic
+replicaCount: 1
+image:
+  repository: local/az-local-agent-customer
+  tag: v1.0.0
+
+# Azure
+agentPool: Local-kubernetes
+agentCustomer: default
