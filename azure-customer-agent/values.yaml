@@ -2,7 +2,7 @@
 replicaCount: 1
 image:
   repository: local/az-local-agent-customer
-  tag: local/az-local-agent-customer:17cdf07
+  tag: a4456b7
 # Azure
 agentPool: Local-kubernetes
 agentCustomer: default
