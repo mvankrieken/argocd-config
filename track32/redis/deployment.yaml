@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: track-32-redis
+  namespace: track32
+  labels:
+    app: atrack-32-redis
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: track-32-redis
+  template:
+    metadata:
+      labels:
+        app: track-32-redis
+    spec:
+      containers:
+        - name: track-32-redis
+          image: redisl:8.4.0
+          ports:
+            -containerPort: 6379
+      securityContext:
+        runAsNonRoot: false
