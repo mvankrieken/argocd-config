@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: track-32-redis
-          image: redisl:8.4.0
+          image: redis:8.4.0
           ports:
             - containerPort: 6379
       securityContext:
