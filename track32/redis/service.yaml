@@ -7,6 +7,5 @@ metadata:
 spec:
   ports:
   - port: 6379
-    nodePort: 6379
   selector:
     run: track-32-redis
