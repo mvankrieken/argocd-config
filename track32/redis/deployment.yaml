@@ -20,6 +20,6 @@ spec:
         - name: track-32-redis
           image: redisl:8.4.0
           ports:
-            -containerPort: 6379
+            - containerPort: 6379
       securityContext:
         runAsNonRoot: false
