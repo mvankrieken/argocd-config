@@ -1,5 +1,5 @@
 # Generic
-replicaCount: 1
+replicaCount: 0
 image:
   repository: local/az-local-agent-customer
   tag: a4456b7
